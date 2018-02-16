@@ -34,24 +34,6 @@ const DeviceSubscriptionRootType = new GraphQLObjectType({
   fields: subscriptions
 });
 
-
-// socket.asyncIterator('deviceCreated')
-// const DeviceSubscriptionRootType = new GraphQLObjectType({
-//   name: 'deviceCreated',
-//   description: 'Subscription to create devices',
-//   fields: () => ({
-//     deviceCreated: {
-//       type: DeviceType,
-//       susbcribe: withFilter(
-//         () => pubsub.asyncIterator('deviceCreated'),
-//         (payload, variables) => {
-//           return payload.channelId === variables.channelId;
-//         }
-//       )
-//     }
-//   }),
-// });
-
 // This is the schema declaration
 const BlogAppSchema = new GraphQLSchema({
   query: DeviceQueryRootType,

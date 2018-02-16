@@ -14,25 +14,17 @@ const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
 const schema = require('./src/schema.js');
 const {SubscriptionServer} = require('subscriptions-transport-ws');
 const {subscribe, execute} = require('graphql');
-mongoose = require('mongoose');
-Device = require('./src/api/models/deviceListModel'); //created model loading here
-
-mongoose.connect('mongodb://localhost:27017/DeviceDB'); 
-
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Success connection');
-});
-
+const db = require('./src/db');
 
 let PORT = 3000;
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/graphql', graphqlExpress({
+app.use('/graphql', graphqlExpress({ 
+  context:{
+    db
+  },
   schema: schema
 }));
 
