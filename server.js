@@ -5,7 +5,7 @@
     will be imported along with the schema object
     from the schema.js file in src/schema.js 
 */
-
+var cors = require('cors')
 const {createServer} = require('http');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -15,11 +15,14 @@ const schema = require('./src/schema.js');
 const {SubscriptionServer} = require('subscriptions-transport-ws');
 const {subscribe, execute} = require('graphql');
 const db = require('./src/db');
+const {gramps} = require('@gramps/gramps');
 
 let PORT = 3000;
 const app = express();
-
+app.use('*', cors({ origin: '*' }));
 app.use(bodyParser.json());
+
+// const GraphQLOptions = gramps();
 
 app.use('/graphql', graphqlExpress({ 
   context:{
@@ -27,6 +30,13 @@ app.use('/graphql', graphqlExpress({
   },
   schema: schema
 }));
+
+// app.use('/graphql', graphqlExpress({ 
+//   context:{
+//     db
+//   },
+//   schema: schema
+// }));
 
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',

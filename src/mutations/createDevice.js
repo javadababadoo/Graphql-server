@@ -17,11 +17,11 @@ module.exports = {
             newDevice
                 .save()
                 .then(data => {
+                    console.log('Data created -> ', data);
                     socket.publish('DEVICE_CREATED', {
                         deviceCreated: data
-                    })
-
-                    resolve(data)
+                    });
+                    resolve(data);
                 })
                 .catch(errors => reject(errors))
 
