@@ -2,22 +2,30 @@
   "name": "graphql_server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel server.js -d dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@gramps/data-source-xkcd": "^2.0.0",
     "@gramps/gramps": "^1.2.0",
+    "apollo-server-express": "^1.3.2",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "graphql": "^0.13.0",
+    "graphql": "^0.13.1",
     "graphql-server-express": "^1.3.2",
     "graphql-subscriptions": "^0.5.7",
+    "graphql-tools": "^2.21.0",
     "lodash": "^4.17.5",
     "mongoose": "^5.0.5",
     "subscriptions-transport-ws": "^0.9.5"
+  },
+  "devDependencies": {
+    "@gramps/cli": "^1.2.1",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
   }
 }

@@ -5,15 +5,15 @@
     will be imported along with the schema object
     from the schema.js file in src/schema.js 
 */
-var cors = require('cors')
-const {createServer} = require('http');
+var cors = require('cors');
+const { createServer } = require('http');
 const bodyParser = require('body-parser');
 const express = require('express');
-const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
+const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
 // const graphqlHTTP = require('express-graphql');
 const schema = require('./src/schema.js');
-const {SubscriptionServer} = require('subscriptions-transport-ws');
-const {subscribe, execute} = require('graphql');
+const { SubscriptionServer } = require('subscriptions-transport-ws');
+const { subscribe, execute } = require('graphql');
 const db = require('./src/db');
 const gramps = require('@gramps/gramps').default;
 const XKCD = require('@gramps/data-source-xkcd');
@@ -24,7 +24,7 @@ app.use('*', cors({ origin: '*' }));
 app.use(bodyParser.json());
 
 const GraphQLOptions = gramps({
-  dataSources: [XKCD],
+  dataSources: [XKCD]
 });
 
 app.use('/graphql', graphqlExpress(GraphQLOptions));
@@ -49,16 +49,16 @@ const server = createServer(app);
 // }));
 
 server.listen(PORT, err => {
-  if(err) throw err
+  if (err) throw err;
 
   new SubscriptionServer({
     schema,
     execute,
     subscribe,
     onConnect: () => console.log('Client connected')
-  },{
+  }, {
     server: server,
     path: '/subscriptions'
   });
-  console.log('GraphQL API server running at localhost:'+ PORT);
+  console.log('GraphQL API server running at localhost:' + PORT);
 });
